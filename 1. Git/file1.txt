@@ -8,6 +8,11 @@ git config --global diff.tool "default difftool"
 git config --global difftool.default.cmd "code--wait--diff\$LOCAL\$REMOTE"
 git config --list--show origin
 
+/--GIT Keygen--/
+ssh-keygen -t rsa
+[id : (bebas) , passphrase : (kosong)]
+ls
+cas bebas.pub
 
 /--Cara add file--/ (git add text.txt)
 /--Cara commit--/ (git commit -m "komen bebas")
@@ -26,4 +31,17 @@ $ git branch -M main
 $ git push -u origin main
 
 /--kalo ga bisa push--/
+eval 'ssh-agent -s'
 ssh-add idssh
+
+
+
+++++tambahan++++
+git push <remote><branch>
+git push <remote>--force
+git push <remote>all
+
+git pull<remote>
+git pull--no-commit<remote>
+git pull--rebase<commit>
+git pull--verbose<commit>
