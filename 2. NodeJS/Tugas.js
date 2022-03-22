@@ -1,6 +1,11 @@
-let nama = "Jairus Calvin Bila";
-let ttl = "15 April 1998";
+// let nama = "Jairus Calvin Bila";
+// let ttl = "15 April 1998";
 
-console.info(nama,ttl);
+const biodata = {
+    nama: "Jairus Calvin BIla",
+    ttl: "Bandung, 15 April 1998",
+    lulusan: "Universitas Telkom",
+    Jurusan: "D3 Sistem Informasi"
+  };
 
-adkunw
+console.info(biodata);
