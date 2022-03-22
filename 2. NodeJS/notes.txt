@@ -1,0 +1,25 @@
+Concurrency = Proses yang berjalan bergantian
+Pararel = Proses yang dapat berjalan bersama-sama
+Synchronous = mirip Concurrency
+Asynchronous = mirip pararel
+
+Threadpool = Wadah dari Thread
+Threadpool Queue = proses tempat antrian dari awal
+
+PENGENALAN NODE.JS
+
+Node Package Manager (NPM) = open source library terbesar dan gratis di dunia
+Callback = perintah untuk memanggil hasil
+
+--Arsitektur Node.js--
+Event Queue = tempat mengantri
+Event Loop = memberikan request kpd pool dan menerima hasilnya jika sudah ada
+Event Pool = mencari requestnya
+
+--Manual Installer Node.js--
+-download
+-instal NPM
+
+--Cek Version--
+node --version
+npm --version
