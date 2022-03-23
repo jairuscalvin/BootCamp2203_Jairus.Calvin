@@ -8,26 +8,20 @@ let quest = readline.createInterface({
 quest.question(`Siapa nama anda? `, (nama) => {
     quest.question(`Email anda? `, (email) => {
         validator.isEmail(email);
-            if (validator.isEmail(email) == false){
-                console.log();
-                console.log(`ALERT!! Email yang anda masukan salah`);
-                console.log(`Silahkan Coba Lagi`);
-                quest.close();
-                process.exit();
-            }
-
-        quest.question(`Nomor HP anda? `, (nohp) => {            
-            validator.isMobilePhone(nohp);
-            if (validator.isEmail(nohp) == false){
-                console.log();
-                console.log(`ALERT!! Nomor yang anda masukan bukan nomor local`);
-                console.log(`Silahkan Coba Lagi`);
-                quest.close();
-                process.exit();
-            }
-
-            console.log(`Terima kasih ${nama}, email anda adalah ${email}, dan nomor hp anda ${nohp}`);
+        if (validator.isEmail(email) == true){
+            quest.question(`Nomor HP anda? `, (nohp) => {
+                if (validator.isMobilePhone(nohp) == true){
+                    console.log();
+                    console.log(`Terima kasih ${nama}, email anda adalah ${email}, dan nomor hp anda ${nohp}`);
+                    quest.close();
+                }else{
+                    console.log(`Nomor HP anda salah!`);
+                    quest.close();
+                }
+            });
+        }else{
+            console.log(`Email tidak sesuai!`);
             quest.close();
-        });
+        }
     });
 });
