@@ -1,0 +1,13 @@
+/----NPM----/
+
+*NPM Inisialisasi*
+npm init
+npm start (tambahkan perintah start di script package.json)
+npm instal/i validator
+npm uninstall validator
+npm audit fix --force (kalo ada masalah instalasi)
+
+*Eksekusi*
+nodemon (eksekusi langsung/otomatis tanpa diperintah)
+menghentikan nodemon = ctrl + c
+
