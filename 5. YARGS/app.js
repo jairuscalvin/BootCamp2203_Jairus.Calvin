@@ -39,11 +39,11 @@ yargs.command({
         },
     },
     handler(argv) {
-        contacts.saveContacts(argv.name,argv.email,argv.phone);
+        contacts.saveContacts(argv.name,argv.phone,argv.email);
         const contact = {
             name:argv.name,
-            email:argv.email,
             phone:argv.phone,
+            email:argv.email,
         };
 
         console.log(contact);
