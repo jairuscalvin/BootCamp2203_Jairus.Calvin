@@ -1,0 +1,16 @@
+{
+  "name": "3.-npm",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app",
+    "fol": "ls"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "validator": "^13.7.0"
+  }
+}

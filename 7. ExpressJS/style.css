@@ -1,0 +1,29 @@
+*{
+    text-decoration: none;
+    margin: 0px;
+    padding: 0px;
+}
+
+body {
+    margin: 0px;
+    padding: 0px;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.nav {
+    width: 100%;
+    margin: auto;
+    display: flex;
+    line-height: 100px;
+    position: sticky;
+    position:-webkit-sticky;
+    top: 0px;
+    background: rgb(161, 85, 34);
+    /* border: 2px solid rgb(126, 55, 12); */
+}
+
+.navbar {
+    width: 1300px;
+    margin: auto;
+    position: relative;
+}

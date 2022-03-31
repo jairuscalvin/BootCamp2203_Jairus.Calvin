@@ -1,0 +1,36 @@
+JSON x NodeJS
+
+*Membuat folder kalo ga ada*
+const dirPath='./data';
+if(ifs.existSync(dirPath)){
+    fs.mkdirSync(dirPath);
+}
+
+*Membuat file jika blm ada*
+const dataPath = './data/contacts.json';
+if(ifs.existSync(dataPath)){
+    fs.writeFileSync(dataPath,'[]','utf-8');
+}
+
+Callback Hell agar tidak terjadi menggunakan Promise
+
+*Function TO ASK Using Promise*
+const questions = (ask) => {
+    return new Promise((resolve, reject) => {
+        quest.questions(ask, (inputVariable) => {
+            resolve(inputVariable);
+        });
+    });
+};
+
+const contacts = require ('./contacts');
+
+const main = async () => {
+    const name = await contacts.questions('What is your name?');
+    const phone = await contacts.questions('Your phone?');
+    const email = await contacts.questions('Your email?');
+
+    contacts.saveContacts(name,phone,email);   
+};
+
+main();

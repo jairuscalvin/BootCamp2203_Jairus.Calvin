@@ -1,0 +1,9 @@
+Modules = sebuah class, function, library yang telah disediakan oleh Node
+
+1. Core Modules
+2. Local Modules
+3. Third Party Modules
+
+
+function
+1. Require()
