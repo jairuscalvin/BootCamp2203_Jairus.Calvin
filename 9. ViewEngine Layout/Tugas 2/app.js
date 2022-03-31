@@ -8,6 +8,7 @@ const port = 3000
 //instalation EJS dengan views
 app.set('view engine','ejs')
 app.use(expressLayouts)
+app.set("layout extractScripts", true)
 
 //memberikan folder styles menjadi statis
 app.use(express.static(__dirname + '/public'));
