@@ -1,7 +1,0 @@
-{
-  "dependencies": {
-    "email-validator": "^2.0.4",
-    "validator": "^13.7.0",
-    "yargs": "^17.4.0"
-  }
-}
