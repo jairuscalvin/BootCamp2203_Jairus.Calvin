@@ -15,10 +15,10 @@ GET /about      -> Method GET yang memanggil URL /about, artinya ketika client m
 
 7.961 ms        -> artinya halaman ini diproses oleh aplikasi dalam waktu 7.761 mili second
 
-- -             -> dash pertama adalah semacam pemisah dengan dash kedua.
+- -             -> dash pertama adalah semacam pemisah dengan dash kedua. dan dash kedua adalah content-length
 
-- 30            -> res(content-length) artinya browser memberitahu bahwa respon/output dari Method tersebut ketika
-                    dijalankan adalah total/panjangnya berjumlah 30 karakter.
+- 37            -> res(content-length) artinya browser memberitahu bahwa respon/output dari Method tersebut ketika
+                    dijalankan adalah total/panjangnya berjumlah 37 karakter.
                     
 
 GET /css/style.css -> Method yang mengambil file style.css dari folder CSS dari URL  
