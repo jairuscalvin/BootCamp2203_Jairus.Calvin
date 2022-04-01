@@ -1,0 +1,18 @@
+Time: 1648786892054
+GET /about 304 7.961 ms - -
+GET /css/style.css 304 1.885 ms - -
+GET /img/jay.jpg 304 2.740 ms - -
+
+Time            -> adalah middleware pertama yang akan selalu muncul ketika client akan melakukan request
+                    Time menunjukan waktu saat ini berdasarkan jam yang ada di pc
+
+GET /about      -> Method GET yang memanggil URL /about, artinya ketika client melakukan request URL about 
+                    dengan valid maka sistem akan memunculkan pages about
+
+304             -> NOT MODIFIED, jadi halaman ini sudah pernah diakses sebelumnya dan nilainya tidak ada yang berubah, 
+                    jadi cache akan lebih mudah memproses halaman ini lagi
+
+7.961 ms        -> artinya halaman ini diproses oleh aplikasi dalam waktu 7.761 mili second
+
+GET /css/style.css -> Method yang mengambil file style.css dari folder CSS dari URL  
+GET /img/jay.jpg   -> Method yang mengambil file jay.jpg dari folder img dari URL
