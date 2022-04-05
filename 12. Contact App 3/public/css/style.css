@@ -159,7 +159,7 @@ nav {
   border-radius: 0.6em;
   color: #e74c3c;
   cursor: pointer;
-  display: flex;
+  display: 50%;
   align-self: center;
   font-size: 1rem;
   font-weight: 400;
@@ -185,6 +185,7 @@ nav {
     transition: all 150ms ease-in-out;
 }
   .third:hover {
+    color: #4555;
     box-shadow: 0 0 10px 0 #dfd32a inset, 0 0 10px 4px #dfd32a;
 }
 
