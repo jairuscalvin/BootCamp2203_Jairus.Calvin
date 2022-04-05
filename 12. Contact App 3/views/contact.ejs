@@ -1,0 +1,29 @@
+<div class="contact">
+    <h1>Contact List</h1>
+    <table class="table">
+        <tr>
+            <th>No</th>
+            <th>Nama</th>
+            <th>Email</th>
+            <th>Action</th>
+        </tr>
+        <% if (contact.length < 1) { %>
+            <tr>
+                Data Kosong
+            </tr>
+        <% }else{ %>
+            <% contact.forEach(kontak => { %>
+            <tr>
+                <td><%= index++ %></td>
+                <td><%= kontak.name %></td>
+                <td><%= kontak.email %></td>
+                <td>
+                    <button class="button">
+                        <a class="btn third" href="/details/<%=kontak.name%>">detail</a>
+                    </button>
+                </td>
+            </tr>
+            <% }) %>
+        <% } %> 
+    </table>
+</div>
