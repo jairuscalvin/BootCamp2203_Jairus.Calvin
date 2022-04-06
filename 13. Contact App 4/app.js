@@ -37,7 +37,6 @@ const details = (name) => {
 }
 
 const store = (name) => {
-    // const newkontak = {name,phone,email};
     let contacts = loadContact();
     let duplicate = contacts.find((contact) => contact.name === name);
     
