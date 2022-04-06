@@ -1,0 +1,14 @@
+<div class="">
+    <div class="list">
+        <h3>Detail Kontak <%= kontak.name %> :</h3>
+        <% if (kontak.length < 1) { %>
+            <p>Data Kosong</p>
+        <% }else{ %>
+            <ul>
+                <li>Nama : <%= kontak.name %> </li>
+                <li>Email : <%= kontak.email %> </li>
+                <li>No HP : <%= kontak.phone %> </li>
+            </ul>
+        <% } %> 
+    </div>
+</div>
