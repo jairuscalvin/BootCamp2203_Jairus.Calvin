@@ -1,0 +1,32 @@
+<div class="container">
+    <h3>Form Edit Kontak</h3>
+
+    <% if (typeof err != 'undefined') { %>
+        <div class="alert" role="alert">
+            <% err.forEach(error => { %>
+            <ul>
+                <li><%= error.msg %></li>
+            </ul>
+            <% }) %> 
+        </div>
+    <% } %> 
+
+    <form action="/contact/update/" method="post" class="form-control">
+        <div>
+            <label for="">Nama</label>
+            <input type="hidden" name="oldName" value="<%=kontak.oldName || kontak.name%>">
+            <input type="text" id="name" name="name" value="<%=kontak.name%>" required>
+        </div>
+        <div>
+            <label for="">Nomor HP</label>
+            <input type="text" id="phone" name="phone" value="<%=kontak.phone%>" required>
+        </div>
+        <div>
+            <label for="">Email</label>
+            <input type="text" id="email" name="email" value="<%=kontak.email%>" required>
+        </div>
+        <div>
+            <button type="submit">Save</button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,41 @@
+<div class="contact">
+    <h1>Contact List</h1>
+
+    <% if (msg.length > 0) { %>
+        <div>
+            <h3><%= msg %> </h3>
+        </div>
+    <% } %>
+
+    <a class="btn-tambah" href="/add-contact">Tambah</a>
+    <table class="table">
+        <tr>
+            <th>No</th>
+            <th>Nama</th>
+            <th>Email</th>
+            <th>Action</th>
+        </tr>
+        <% if (contact.length < 1) { %>
+            Data Kosong
+        <% }else{ %>
+            <% contact.forEach(kontak => { %>
+            <tr>
+                <td><%= index++ %></td>
+                <td><%= kontak.name %></td>
+                <td><%= kontak.email %></td>
+                <td>
+                    <div class="btn-flex">
+                        <a class="btn third" href="/details/<%=kontak.name%>">show</a>
+                        <a class="btn third" href="/contact/edit/<%=kontak.name%>">Edit</a>
+                        <form action="/contact/delete/<%=kontak.name%>" method="post" id="delete" onclick="return confirm('Data akan dihapus. Apakah anda yakin?')">
+                            <a class="btn btn-danger" href="/contact/delete/<%=kontak.name%>">delete</a>
+                        </form>
+                        <input type="checkbox" name="chekckbox">
+                    </div>
+                    
+                </td>
+            </tr>
+            <% }) %>
+        <% } %> 
+    </table>
+</div>
