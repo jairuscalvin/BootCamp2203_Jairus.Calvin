@@ -239,6 +239,22 @@ app.post('/contact/update',
         res.redirect('/contact')
     }    
 })
+app.post('/cekboxDelete', (req, res) => {
+    let {nama} = req.body
+    console.log(nama)
+    if(Array.isArray(nama)){
+        nama.forEach(kontak => {
+            destroy(kontak)
+            req.flash('msg', 'Beberapa berhasil dihapus')
+            res.redirect('/contact')
+        });
+    }else{
+        destroy(nama)
+        req.flash('msg', 'Berhasil dihapus')
+        res.redirect('/contact')
+    }
+})
+
 app.get('/product/:product_id', (req, res) => {
     res.send('product id : ' + req.params.product_id + '<br> category id : ' + req.query.category)
 })

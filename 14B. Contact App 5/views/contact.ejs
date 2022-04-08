@@ -6,8 +6,10 @@
             <h3><%= msg %> </h3>
         </div>
     <% } %>
-
+    <form action="/cekboxDelete" method="post">
+    <button type="submit" class="btn btn-danger" onclick="return confirm('Data akan dihapus. Apakah anda yakin?')">Delete All</button>
     <a class="btn-tambah" href="/add-contact">Tambah</a>
+    
     <table class="table">
         <tr>
             <th>No</th>
@@ -18,6 +20,9 @@
         <% if (contact.length < 1) { %>
             Data Kosong
         <% }else{ %>
+            
+
+            
             <% contact.forEach(kontak => { %>
             <tr>
                 <td><%= index++ %></td>
@@ -30,7 +35,8 @@
                         <form action="/contact/delete/<%=kontak.name%>" method="post" id="delete" onclick="return confirm('Data akan dihapus. Apakah anda yakin?')">
                             <a class="btn btn-danger" href="/contact/delete/<%=kontak.name%>">delete</a>
                         </form>
-                        <input type="checkbox" name="chekckbox">
+                       
+                        <input type="checkbox" name="nama" value="<%=kontak.name%>">
                     </div>
                     
                 </td>
@@ -38,4 +44,7 @@
             <% }) %>
         <% } %> 
     </table>
+    <script>
+
+    </script>
 </div>
