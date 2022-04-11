@@ -5,6 +5,7 @@ const port = 3000
 
 app.use(express.json())
 
+//routes add data
 app.get('/add', async (req, res) => {
     try {
         const name = 'laskd'
@@ -19,6 +20,7 @@ app.get('/add', async (req, res) => {
     }
 })
 
+//routes list contact
 app.get('/list', async (req, res) => {
     try {
         const list = await pool.query(`
@@ -31,6 +33,7 @@ app.get('/list', async (req, res) => {
     }  
 })
 
+//routes details contact
 app.get('/details/:name', async (req, res) => {
     try {
         const name = (req.params.name)
@@ -39,13 +42,22 @@ app.get('/details/:name', async (req, res) => {
         FROM contacts
         WHERE name='${name}'
         `)
-        res.json(Details.rows)
+        const count = (Details.rowCount)
+        if (count >0){
+            res.json(Details.rows)
+            console.log(Details.rows)
+        }else{
+            res.send('Data tidak ada')
+            console.log('Data tidak ada')
+        }
+        
     } catch (err) {
         
         console.error(err.message)
     }  
 })
 
+//routes delete contact
 app.get('/delete/:name', async (req, res) => {
     
     try {
@@ -58,32 +70,56 @@ app.get('/delete/:name', async (req, res) => {
         SELECT *
         FROM contacts
         `)
-        res.json(Details.rows)
+        const count = (deleted.rowCount)
+        if (count <1) {
+            res.send('Data Berhasil Dihapus')
+            res.json(Details.rows)
+        } else {
+            res.send('Nama salah!')
+        }
     } catch (err) {
         console.error(err.message)
     }
 })
 
+//routes update contact
 app.get('/update/:name', async (req, res) => {
     try {
         const name = (req.params.name)
-        const phone = '082000238491'
-        const email = 'maiaa@gmail.com'
+        const phone = '081201235081'
+        const email = 'jairuscalvin@gmail.com'
+
+        //Memanggil data yang sudah ada sebelum diupdate
+        const { rows : oldCont } = await pool.query(`
+        SELECT * from contacts
+        WHERE name='${name}'
+        `)
+
+        //Update data tersebut
         const update = await pool.query(`
         UPDATE contacts 
         SET phone ='${phone}', email ='${email}' 
         WHERE name='${name}'
         `)
-        const newCont = await pool.query(`
+
+        //Memanggil data yang sudah diupdate
+        const { rows : newCont} = await pool.query(`
         SELECT * from contacts
         WHERE name='${name}'
         `)
-        res.send(`${name} Berhasil diupdate`)
-        res.json(newCont.rows)
-        console.log(newCont.rows)
+
+        //output
+        res.json({oldCont, newCont})
+        console.log(newCont)
     } catch (err) {
         console.error(err.message)
     }   
+})
+
+//error routes
+app.use('/', (req, res) => {
+    res.status(404);
+    res.send('<h2>404 - Page Not Found!!</h2>');
 })
 
 app.listen(port, () => {
