@@ -1,0 +1,31 @@
+<div class="container">
+    <h3>Silahkan Masukan Kontak Baru</h3>
+
+    <% if (typeof err != 'undefined') { %>
+        <div class="alert" role="alert">
+            <% err.forEach(error => { %>
+            <ul>
+                <li><%= error.msg %></li>
+            </ul>
+            <% }) %> 
+        </div>
+    <% } %> 
+
+    <form action="/contact/store" method="post" class="form-control">
+        <div>
+            <label for="">Nama</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+        <div>
+            <label for="">Nomor HP</label>
+            <input type="text" id="phone" name="phone" required>
+        </div>
+        <div>
+            <label for="">Email</label>
+            <input type="text" id="email" name="email" required>
+        </div>
+        <div>
+            <button type="submit">Submit</button>
+        </div>
+    </form>
+</div>

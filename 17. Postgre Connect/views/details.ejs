@@ -1,0 +1,19 @@
+<div class="">
+    <div class="list">
+        <h3>Detail Kontak <%= kontak.name %> :</h3>
+        <% if (kontak.length < 1) { %>
+            <p>Data Kosong</p>
+        <% }else{ %>
+            <ul>
+                <li>Nama : <%= kontak.name %> </li>
+                <li>Email : <%= kontak.phone %> </li>
+                <li>No HP : <%= kontak.email %> </li>
+            </ul>
+            <div>
+                <form action="/contact/delete/<%=kontak.name%>" method="post" onclick="return confirm('Data akan dihapus. Apakah anda yakin?')">
+                    <a class="btn btn-danger" href="/contact/delete/<%=kontak.name%>">delete</a>
+                </form>
+            </div>
+        <% } %> 
+    </div>
+</div>
