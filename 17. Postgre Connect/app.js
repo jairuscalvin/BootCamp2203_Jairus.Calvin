@@ -29,82 +29,6 @@ app.use(
 )
 app.use(flash())
 
-//pengecekan file json jika tidak ada data
-const dirPath='./data';
-if(!fs.existsSync(dirPath)){
-    fs.mkdirSync(dirPath);
-}
-//membuat file json jika tidak ada data
-const dataPath = './data/contacts.json';
-if(!fs.existsSync(dataPath)){
-    fs.writeFileSync(dataPath,'[]','utf-8');
-}
-
-//membaca file json yg sudah ada
-const loadContact = () => {
-    const file = fs.readFileSync('data/contacts.json','utf-8');
-    const contacts = JSON.parse(file);
-    return contacts;
-}
-
-async function getAll() {
-    const all = await pool.query(`
-    SELECT * 
-    FROM contacts
-    `)
-    return all
-}
-
-const saveContacts = (contacts) => {
-    fs.writeFileSync('data/contacts.json', JSON.stringify(contacts));
-}
-
-const details = (name) => {
-    const select = pool.query(`
-    SELECT * FROM contacts
-    Where
-    `)
-    let find = contacts.find((contact) => contact.name === name);
-    return find;
-}
-
-const store = (name) => {
-    let contacts = loadContact();
-    let duplicate = contacts.find((contact) => contact.name === name);
-    
-    if(duplicate) {
-        console.log('Kontak sudah ada');
-        return false;
-    }
-
-    const push = contacts.push(name);
-    if (push.length < 1){
-        console.log('error');
-    }else{
-        fs.writeFileSync('./data/contacts.json', JSON.stringify(contacts))
-    }
-}
-
-const destroy = (name) => {
-    const contacts = loadContact();
-    const newContacts = contacts.filter(
-        (contact) => contact.name !== name
-    );
-
-    saveContacts(newContacts)
-}
-
-const update = (newContact) => {
-    const contacts = loadContact()
-    const find = contacts.filter(
-        (contact) => contact.name !== newContact.oldName
-    )
-    
-    delete newContact.oldName //dihapus dulu old name yg ada di newContact
-    find.push(newContact)   //lalu file yang sudah di filer akan disisipkan data newContact
-    saveContacts(find)      //lalu file lama di replace dengan yang baru 
-}
-
 //instalation EJS dengan views
 app.set('view engine','ejs') 
 app.use(expressLayouts)
@@ -115,6 +39,20 @@ app.use((req, res, next) => {
     console.log('Time:', Date.now())
     next()
   })
+
+  
+//----------------------FUNCTION
+async function destroy(value) {
+    try {
+        const destroy = await pool.query(`
+        DELETE FROM contacts
+        WHERE name='${value}'
+        `)
+        return destroy
+    } catch (err) {
+        console.error(err.message)        
+    }
+}
 
 //----------------------routes home
 app.get('/', async (req, res) => {
@@ -136,6 +74,7 @@ app.get('/', async (req, res) => {
         console.error(err.message)
     }
 })
+
 //----------------------routes about
 app.get('/about', (req, res) => {
     res.render('about', {
@@ -143,6 +82,7 @@ app.get('/about', (req, res) => {
         layout: 'layouts/main-layouts',
     })
 })
+
 //----------------------routes contact
 app.get('/contact', async (req, res) => {
     try {
@@ -163,6 +103,8 @@ app.get('/contact', async (req, res) => {
         console.error(err.message)
     }
 })
+
+//----------------------routes contact
 app.get('/contact/add-contact', (req, res) => {
     res.render('add-contact', {
         title: 'New Contact',
@@ -209,6 +151,7 @@ app.post('/contact/store',
         console.error(err.message)
     } 
 })
+
 //----------------------routes details contact
 app.get('/details/:name', async (req, res) => {
     try {
@@ -229,6 +172,7 @@ app.get('/details/:name', async (req, res) => {
         console.error(err.message)
     }
 })
+
 //----------------------routes DELETE contact
 app.get('/contact/delete/:name', async (req, res) => {
     const deleted = await pool.query(`
@@ -243,6 +187,7 @@ app.get('/contact/delete/:name', async (req, res) => {
         res.redirect('/contact')
     }
 })
+
 //----------------------routes edit contact
 app.get('/contact/edit/:name', async (req, res) => {
     try {
@@ -263,6 +208,7 @@ app.get('/contact/edit/:name', async (req, res) => {
         console.error(err.message)
     }
 })
+
 //----------------------routes update contact
 app.post('/contact/update',
 [
@@ -303,25 +249,28 @@ app.post('/contact/update',
             console.error(err.message)
         }    
 })
+
+//----------------------routes Check Box Delete
 app.post('/cekboxDelete', async (req, res) => {
-    let {name} = req.body
-    console.log(name)
-    const destroy = await pool.query(`
-    DELETE FROM contacts
-    WHERE name='${name}'
-    `)
-    if(Array.isArray(name)){
-        name.forEach(kontak => {
-            destroy(kontak)
-            req.flash('msg', 'Beberapa berhasil dihapus')
+    try {
+        let {name} = req.body
+        console.log(name)
+        
+        if(Array.isArray(name)){
+            name.forEach(kontak => {
+                destroy(kontak)
+                req.flash('msg', 'Beberapa berhasil dihapus')
+                res.redirect('/contact')
+            });
+        }else{
+            const del1 = await pool.query(`
+            DELETE FROM contacts
+            WHERE name='${name}'`)
+            req.flash('msg', 'Berhasil dihapus')
             res.redirect('/contact')
-        });
-    }else{
-        const del1 = await pool.query(`
-        DELETE FROM contacts
-        WHERE name='${name}'`)
-        req.flash('msg', 'Berhasil dihapus')
-        res.redirect('/contact')
+        } 
+    } catch (err) {
+        console.error(err.message)       
     }
 })
 
