@@ -60,7 +60,10 @@ const saveContacts = (contacts) => {
 }
 
 const details = (name) => {
-    const contacts = loadContact();
+    const select = pool.query(`
+    SELECT * FROM contacts
+    Where
+    `)
     let find = contacts.find((contact) => contact.name === name);
     return find;
 }
@@ -166,15 +169,18 @@ app.get('/contact/add-contact', (req, res) => {
         layout: 'layouts/main-layouts',
     })
 })
+
 //----------------------routes proses post data
 app.post('/contact/store',
 [
-    body('name').custom((value, {req}) => {
-        const select = pool.query(`
-        SELECT * FROM contacts
+    body('name').custom( async(value, ) => {
+        const duplikat = await pool.query(`
+        SELECT name
+        FROM contacts
+        WHERE name='${value}'
         `)
-        const cek = select.name === value
-        if (cek) {
+        console.log(duplikat)
+        if (duplikat.rowCount >0) {
             throw new Error('Nama ini sudah digunakan')
         }
         return true
@@ -193,7 +199,6 @@ app.post('/contact/store',
             err: err.array(), 
         })
     }else{
-        console.log(req.body.name)
         const newCont = await pool.query(`
         INSERT INTO contacts values('${req.body.name}','${req.body.phone}','${req.body.email}')
         `)
@@ -239,32 +244,43 @@ app.get('/contact/delete/:name', async (req, res) => {
     }
 })
 //----------------------routes edit contact
-app.get('/contact/edit/:name', (req, res) => {
-    const kontak = details(req.params.name);
-
-    res.render('edit', {
-        title: 'Edit Kontak',
-        kontak,
-        layout: 'layouts/main-layouts',
-    })
+app.get('/contact/edit/:name', async (req, res) => {
+    try {
+        const name = (req.params.name)
+        const {rows : select} = await pool.query(`
+        SELECT name, phone, email
+        FROM contacts
+        WHERE name='${name}'
+        `)
+        select.map(kontak => {
+            res.render('edit', {
+                title: 'Edit Contact',
+                kontak,
+                layout: 'layouts/main-layouts',
+            })
+        })
+    }catch (err) {
+        console.error(err.message)
+    }
 })
 //----------------------routes update contact
 app.post('/contact/update',
 [
-    body('name').custom((value, {req}) => {
-        const select = pool.query(`
-        SELECT * FROM contacts
+    body('name').custom( async(value, {req}) => {
+        const allData = await pool.query(`
+        SELECT name 
+        FROM contacts
         WHERE name='${value}'
         `)
-        if (value !== req.body.oldName && select) {
+        if (!value === req.body.oldName && allData) {
             throw new Error('Nama ini sudah digunakan')
         }
         return true
     }),
-    check('phone', 'nomor tidak ditemukan!').isMobilePhone('id-ID'),
+    check('phone', 'nomor tidak valid!').isMobilePhone('id-ID'),
     check('email', 'email tidak valid!').isEmail()
 ],
-    async(req, res) => {
+    async (req, res) => {
         try {
             const err = validationResult(req)
             if(!err.isEmpty()){
