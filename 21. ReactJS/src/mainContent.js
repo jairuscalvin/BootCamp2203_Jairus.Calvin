@@ -1,10 +1,10 @@
-import React, { UseState } from 'react';
+import React, { useState } from 'react';
 
 
-const mainContent = () => { 
-    let [Quantity, Jumlah] = UseState(0)
-    let add = () => {
-        Jumlah(Quantity+1)
+const MainContent = () => { 
+    const [Quantity, Jumlah] = useState(0)
+    const add = () => {
+        Jumlah(Quantity + 1)
     }
 
     return (
@@ -14,10 +14,10 @@ const mainContent = () => {
             <button id='btn' onClick={add}>
                 + Add
             </button>
-            <h3>Quantity : {Jumlah}</h3>
+            <h3>Quantity : {Quantity}</h3>
         </React.Fragment>
     )
 } 
 
-export default mainContent;
+export default MainContent;
 

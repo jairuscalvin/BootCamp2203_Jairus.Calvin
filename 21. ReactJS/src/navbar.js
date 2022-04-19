@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-const navbar = () => {
+const Navbar = () => {
     let waktu = new Date().toLocaleTimeString()
     return (
         <div class="links">
@@ -18,4 +18,4 @@ const navbar = () => {
     )
 }
 
-export default navbar;
+export default Navbar;
